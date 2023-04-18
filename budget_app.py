@@ -46,8 +46,8 @@ class Category:
         for i in self.ledger:
             amount = i["amount"]
             description = i["description"]
-            s = s + "\n" + f"{description[:23]:<23}" + f"{amount:>7.2f}"  
-        s = s + "\n" + f"Total: {self.get_balance()}"
+            s += "\n" + f"{description[:23]:<23}" + f"{amount:>7.2f}"  
+        s += "\n" + f"Total: {self.get_balance()}"
         return s 
         
 def create_spend_chart(categories):
