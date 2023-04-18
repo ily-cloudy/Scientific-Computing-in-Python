@@ -12,7 +12,7 @@ class Category:
     def get_balance(self):
         self.bal = 0.0
         for i in self.ledger:
-            self.bal = self.bal + i["amount"]
+            self.bal += i["amount"]
         self.bal = float(self.bal)
         return self.bal
     
