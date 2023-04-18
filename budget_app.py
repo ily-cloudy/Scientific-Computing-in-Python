@@ -4,7 +4,6 @@ Created on Mon Apr 17 13:06:12 2023
 @author: ily-cloudy
 """
 
-# excuse the mess; this is my first time properly using 'custom' classes
 class Category:
     def __init__(self, n):
         self.name = n
@@ -52,7 +51,6 @@ class Category:
         return s 
         
 def create_spend_chart(categories):
-  
     # parameters
     cat_totals = []
     index = []
@@ -72,9 +70,10 @@ def create_spend_chart(categories):
         percent = (i / total) * 100
         percentages.append(percent)
         
-    
     # formatting output (i barely know how, but it works (i think))
     s = "Percentage spent by category\n"
+    
+    # creating percentage visuals
     for i in range(100, -10, -10):
         s += f"{i:3d}| " 
         for j in percentages:
@@ -84,15 +83,17 @@ def create_spend_chart(categories):
                 s += "   "
         s += "\n" 
     s += "    " + "-" * (len(categories) * 3 + 1) + "\n"
-    max_name_length = max([len(i) for i in index])
-    for i in range(max_name_length):
+    
+    # adding category names 
+    length = max([len(i) for i in index])
+    for i in range(length):
         s += "     "
         for j in index:
             if i < len(j):
                 s += j[i] + "  "
             else:
                 s += "   "
-        if i != max_name_length - 1:
+        if i != length - 1:
             s += "\n"
 
     return s
