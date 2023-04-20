@@ -45,7 +45,7 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
     # returns probability
     return n_success / num_experiments
 
-# test run c:
+# test run
 hat = Hat(black=6, red=4, green=3)
 
 print(experiment(hat=hat,
