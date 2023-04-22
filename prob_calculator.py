@@ -1,5 +1,5 @@
 import random
-# note 1: 'import copy' would be (slightly?) more effective but i, for some reason, decided to remove it during troubleshooting. Make sure to use copy.deepcopy! See line 25-27.   
+import copy
 
 class Hat:
     def __init__(self, **entries):
@@ -13,43 +13,18 @@ class Hat:
         if n > len(self.contents):
             n = len(self.contents)
         for i in range(n):
-            ball = random.choice(self.contents)
-            self.drawn.append(ball)
-            self.contents.remove(ball)
+          self.drawn.append(self.contents.pop(random.randrange(len(self.contents))))
         return self.drawn
 
-# mess warning! proceed at your own risk. 
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
     n_success = 0
     for i in range(num_experiments):
-        success = True
-        # creating copies for each list, as both the draw method and the for-loop, which checks the if the draw was succesful, will remove elements from lists.  
-        expected_copy = expected_balls.copy()
-        hat_copy = Hat()
-        hat_copy.contents = hat.contents.copy()
-        drawn = hat_copy.draw(num_balls_drawn)
-        # this can probably be simplified, though all my attempts (1) failed horrendously.
-        for j in drawn:
-            if j in expected_copy:
-                expected_copy[j] -= 1
-                if expected_copy[j] == 0:
-                    del expected_copy[j]
-                    if len(expected_copy) == 0:
-                        break
-            else:
-                success = False
-                break
-        # success counter
-        if success:
-            n_success += 1
-    # returns probability
+      hat_copy = copy.deepcopy(hat)
+      drawn = hat_copy.draw(num_balls_drawn)
+      correct_balls = 0
+      for k,v in expected_balls.items():
+        if drawn.count(k) >= v:
+          correct_balls += 1      
+      if correct_balls == len(expected_balls):
+        n_success += 1 
     return n_success / num_experiments
-
-# test run
-hat = Hat(black=6, red=4, green=3)
-
-print(experiment(hat=hat,
-                 expected_balls={"red":2,"green":1},
-                 num_balls_drawn=5,
-                 num_experiments=2000)
-)
