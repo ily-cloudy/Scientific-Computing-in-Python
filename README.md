@@ -1,4 +1,4 @@
-# Scientific-Computing-in-Python
+# Scientific Computing with Python
 
 i hope this will be able to help some plp who are stuck on these projects, since the pytest modules and sometimes odd rules can be quite annoying. <3
 
